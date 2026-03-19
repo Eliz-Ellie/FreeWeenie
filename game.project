@@ -1,0 +1,32 @@
+[bootstrap]
+main_collection = /main/main.collectionc
+
+[script]
+shared_state = 1
+
+[display]
+width = 320
+height = 180
+high_dpi = 1
+dynamic_orientation = 0
+
+[android]
+input_method = HiddenInputField
+
+[html5]
+scale_mode = stretch
+wasm_streaming = 1
+show_fullscreen_button = 0
+show_made_with_defold = 0
+
+[project]
+title = Free Weenie
+dependencies#0 = https://github.com/defold/extension-poki-sdk/archive/refs/heads/main.zip
+
+[physics]
+debug = 0
+
+[graphics]
+default_texture_min_filter = nearest
+default_texture_mag_filter = nearest
+

@@ -1,0 +1,49 @@
+function init(self)
+    self.current_frame = 0
+    self.receivers = {} -- key: sender url string, value: { frame = n, matched = bool }
+    self.victory_printed = false
+end
+
+local function count_receivers(tbl)
+    local n = 0
+    for _, _ in pairs(tbl) do n = n + 1 end
+    return n
+end
+
+local function all_receivers_matched(self)
+    local total = 0
+    local matched = 0
+
+    for _, data in pairs(self.receivers) do
+        total = total + 1
+        if data.frame == self.current_frame and data.matched then
+            matched = matched + 1
+        end
+    end
+
+    return total > 0 and matched == total, matched, total
+end
+
+function on_message(self, message_id, message, sender)
+    if message_id == hash("laser_frame_tick") then
+        self.current_frame = (message.frame or 0)
+
+        local ok, matched_count, total = all_receivers_matched(self)
+        if ok and not self.victory_printed then
+            print("VICTORY!")
+            self.victory_printed = true
+        elseif not ok then
+            self.victory_printed = false
+        end
+
+    elseif message_id == hash("receiver_status") then
+        local key = tostring(sender)
+        self.receivers[key] = {
+            frame = message.frame or self.current_frame,
+            matched = message.matched == true
+        }
+    end
+    if message_id == hash("show_win_panel") then
+        -- show panel
+    end
+end

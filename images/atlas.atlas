@@ -1,0 +1,30 @@
+images {
+  image: "/images/Namnl\303\266s.png"
+  pivot_x: 0.586967
+  pivot_y: 0.415036
+}
+images {
+  image: "/images/laserEmitter.png"
+}
+images {
+  image: "/images/LaserReciver.png"
+}
+images {
+  image: "/images/portal1.png"
+}
+images {
+  image: "/images/portal2.png"
+}
+images {
+  image: "/images/download (6).jpg"
+}
+images {
+  image: "/images/Mirror.png"
+}
+images {
+  image: "/images/laser_segment.png"
+}
+images {
+  image: "/images/splitmirror.png"
+}
+extrude_borders: 2

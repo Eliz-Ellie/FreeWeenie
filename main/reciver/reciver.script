@@ -1,0 +1,31 @@
+go.property("target_color", vmath.vector4(1, 1, 1, 1))
+go.property("tolerance", 0.15)
+
+local function color_match(a, b, tol)
+    if not a or not b then return false end
+    return math.abs(a.x - b.x) <= tol
+       and math.abs(a.y - b.y) <= tol
+       and math.abs(a.z - b.z) <= tol
+       and math.abs(a.w - b.w) <= tol
+end
+
+function init(self)
+    -- no debug prints
+end
+
+function on_message(self, message_id, message, sender)
+    if message_id ~= hash("laser_hit") then
+        return
+    end
+
+    local incoming = message.color
+    local matched = color_match(incoming, self.target_color, self.tolerance)
+
+    if message.emitter then
+        msg.post(message.emitter, "receiver_status", {
+            go_id = go.get_id(),
+            frame = message.frame or 0,
+            matched = matched
+        })
+    end
+end

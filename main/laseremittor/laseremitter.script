@@ -1,0 +1,187 @@
+local MAX_DISTANCE = 2000
+local MAX_BOUNCES = 10
+local PORTAL_EXIT_OFFSET = -1.0
+local DEBUG_RAY = false
+
+local DEFAULT_LASER_COLOR = vmath.vector4(1, 0, 0, 1)
+
+go.property("spawn_offset", vmath.vector3(18, 0, 0))
+
+local function dbg(...)
+    if DEBUG_RAY then print(...) end
+end
+
+local function resolve_target_url(v)
+    if not v then return nil end
+    if type(v) == "userdata" then
+        return v
+    end
+    if type(v) == "string" and v ~= "" then
+        return msg.url(v)
+    end
+    return nil
+end
+
+local function portal_transform(enter_go, exit_go, hit_pos, in_dir)
+    local enter_pos = go.get_position(enter_go)
+    local enter_rot = go.get_rotation(enter_go)
+
+    local exit_pos = go.get_position(exit_go)
+    local exit_rot = go.get_rotation(exit_go)
+
+    local enter_inv = vmath.conj(enter_rot)
+
+    local local_pos = vmath.rotate(enter_inv, hit_pos - enter_pos)
+    local local_dir = vmath.rotate(enter_inv, in_dir)
+
+    local_pos.x = -local_pos.x
+    local local_dir_x = -local_dir.x
+    local_dir = vmath.vector3(local_dir_x, local_dir.y, local_dir.z)
+
+    local out_pos = exit_pos + vmath.rotate(exit_rot, local_pos)
+    local out_dir = vmath.normalize(vmath.rotate(exit_rot, local_dir))
+
+    local exit_front = vmath.normalize(vmath.rotate(exit_rot, vmath.vector3(1, 0, 0)))
+    if vmath.dot(out_dir, exit_front) < 0 then
+        out_dir = -out_dir
+    end
+
+    out_pos = out_pos + out_dir * PORTAL_EXIT_OFFSET
+    return out_pos, out_dir
+end
+
+local function get_mirror_property(hit_id, property_name, default_value)
+    local ok, value = pcall(function()
+        return go.get(msg.url(nil, hit_id, "mirror"), property_name)
+    end)
+    if ok then return value end
+
+    local ok2, value2 = pcall(function()
+        return go.get(msg.url(nil, hit_id, "script"), property_name)
+    end)
+    if ok2 then return value2 end
+
+    return default_value
+end
+
+local function shoot_laser(self, start_pos, direction, bounce, last_hit_id, laser_color, frame, emitter_url)
+    if bounce > MAX_BOUNCES then return end
+
+    laser_color = laser_color or DEFAULT_LASER_COLOR
+    direction = vmath.normalize(direction)
+
+    local to = start_pos + direction * MAX_DISTANCE
+    local mask = { hash("mirror"), hash("wall"), hash("portal"), hash("reciver"), hash("receiver") }
+    local result = physics.raycast(start_pos, to, mask)
+
+    if result and last_hit_id and result.id == last_hit_id and result.group == hash("mirror") then
+        local nudge = start_pos + direction * 1.0
+        result = physics.raycast(nudge, to, mask)
+    end
+
+    if result then
+        msg.post("@render:", "draw_line", {
+            start_point = start_pos,
+            end_point = result.position,
+            color = laser_color
+        })
+
+        if result.group == hash("mirror") then
+            local mirror_color = get_mirror_property(result.id, "laser_color", nil)
+            if mirror_color and mirror_color.w > 0 then
+                laser_color = mirror_color
+            end
+
+            local is_splitter = get_mirror_property(result.id, "is_splitter", false)
+
+            local dot = vmath.dot(direction, result.normal)
+            local reflect_dir = vmath.normalize(direction - 2 * dot * result.normal)
+            local reflect_start = result.position + reflect_dir * 0.5
+            shoot_laser(self, reflect_start, reflect_dir, bounce + 1, result.id, laser_color, frame, emitter_url)
+
+            if is_splitter then
+                local pass_dir = direction
+                local pass_start = result.position + pass_dir * 0.5
+                shoot_laser(self, pass_start, pass_dir, bounce + 1, result.id, laser_color, frame, emitter_url)
+            end
+
+        elseif result.group == hash("portal") then
+            local portal_script = msg.url(nil, result.id, "portal1")
+            local paired_raw = go.get(portal_script, "paired_portal")
+            local exit_portal = resolve_target_url(paired_raw)
+            if exit_portal then
+                local new_start, new_dir = portal_transform(result.id, exit_portal, result.position, direction)
+                shoot_laser(self, new_start, new_dir, bounce + 1, nil, laser_color, frame, emitter_url)
+            end
+
+        elseif result.group == hash("reciver") or result.group == hash("receiver") then
+            msg.post(msg.url(nil, result.id, nil), "laser_hit", {
+                color = laser_color,
+                frame = frame,
+                emitter = emitter_url
+            })
+        end
+    else
+        dbg("RAY MISS")
+        msg.post("@render:", "draw_line", {
+            start_point = start_pos,
+            end_point = to,
+            color = laser_color
+        })
+    end
+end
+
+function init(self)
+    self.frame = 0
+    self.victory_printed = false
+    self.game_won = false
+
+    -- per-frame aggregation built from receiver_status messages
+    self.frame_stats = {
+        frame = -1,
+        total = 0,
+        matched = 0
+    }
+end
+
+function on_message(self, message_id, message, sender)
+    if message_id == hash("receiver_status") then
+        local frame = message.frame or -1
+        local matched = (message.matched == true)
+
+        -- new frame bucket
+        if self.frame_stats.frame ~= frame then
+            self.frame_stats.frame = frame
+            self.frame_stats.total = 0
+            self.frame_stats.matched = 0
+        end
+
+        self.frame_stats.total = self.frame_stats.total + 1
+        if matched then
+            self.frame_stats.matched = self.frame_stats.matched + 1
+        end
+
+        local all_ok = (self.frame_stats.total >= 2) and (self.frame_stats.matched == self.frame_stats.total)
+        if all_ok and not self.victory_printed then
+            print("VICTORY!")
+            self.game_won = true
+            msg.post(".", "show_win_panel")
+            self.victory_printed = true
+        elseif not all_ok then
+            self.victory_printed = false
+        end
+    end
+end
+
+function update(self, dt)
+    self.frame = self.frame + 1
+
+    if self.game_won then return end
+
+    local rot = go.get_rotation()
+    local base_pos = go.get_position()
+    local start = base_pos + vmath.rotate(rot, self.spawn_offset)
+    local direction = vmath.rotate(rot, vmath.vector3(1, 0, 0))
+
+    shoot_laser(self, start, direction, 0, nil, DEFAULT_LASER_COLOR, self.frame, msg.url())
+end

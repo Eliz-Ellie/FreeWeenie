@@ -1,0 +1,18 @@
+go.property("laser_color", vmath.vector4(1, 1, 1, 1))
+go.property("is_splitter", false)
+
+function on_message(self, message_id, message, sender)
+    -- move mirror
+    if message_id == hash("move") then
+
+        -- set position of mirro based on message data
+        go.set_position(message.movePos)
+
+        -- rotate mirror
+    elseif message_id == hash("rotate") then
+
+        -- set rotation of mirror to message rotation
+        go.set_rotation(message.rotateAngle)
+
+    end
+end

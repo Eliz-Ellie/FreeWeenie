@@ -1,0 +1,41 @@
+-- Portal script: set 'paired_portal' in the editor to the URL of the other portal (e.g. "/main/portal#go")
+go.property("paired_portal", msg.url())
+
+function init(self)
+    if self.paired_portal ~= "" then
+        self.paired = msg.url(self.paired_portal)
+    else
+        self.paired = nil
+    end
+end
+
+function on_message(self, message_id, message, sender)
+    if message_id == hash("contact_point_response") then
+        local other = message.other_id
+        if other then
+            -- ask the colliding object (laser) for its velocity and identity
+            msg.post(other, "portal_probe", { portal = go.get_id() })
+        end
+
+    elseif message_id == hash("teleport_request") then
+        -- Expect message: { laser = url, velocity = vmath.vector3() }
+        if not self.paired then return end
+        local laser = message.laser
+        local vel = message.velocity or vmath.vector3(0,0,0)
+
+        -- compute exit position and offset along velocity to avoid immediate re-collision
+        local exit_pos = go.get_position(self.paired)
+        local norm_vel = vmath.normalize(vel)
+        if vmath.length(norm_vel) == 0 then
+            -- fallback direction if the laser is stationary
+            norm_vel = vmath.vector3(0, 1, 0)
+        end
+        local offset = norm_vel * 12 -- tweak as needed
+        local spawn_pos = exit_pos + offset
+
+        -- move the laser and reapply its velocity (preserves world angle)
+        go.set_position(spawn_pos, laser)
+        -- physics.set_linear_velocity may require the physics component id; try with GO id first and adjust if needed
+        pcall(function() physics.set_linear_velocity(vel, laser) end)
+    end
+end
