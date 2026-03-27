@@ -273,6 +273,14 @@ instances {
     x: 229.7698
     y: 36.00407
   }
+  component_properties {
+    id: "mirror"
+    properties {
+      id: "is_splitter"
+      value: "true"
+      type: PROPERTY_TYPE_BOOLEAN
+    }
+  }
 }
 instances {
   id: "mirror1"
