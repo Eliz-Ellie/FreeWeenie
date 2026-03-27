@@ -1,0 +1,250 @@
+name: "main"
+instances {
+  id: "mouse"
+  prototype: "/game/main/mouse.go"
+  position {
+    z: 1.0
+  }
+}
+instances {
+  id: "laser emitter"
+  prototype: "/game/main/laseremittor/laser emitter.go"
+  position {
+    x: 28.0
+    y: 157.0
+    z: 1.0
+  }
+  component_properties {
+    id: "laser emitter"
+    properties {
+      id: "spawn_offset"
+      value: "18.0, 0.0, 0.0"
+      type: PROPERTY_TYPE_VECTOR3
+    }
+  }
+}
+instances {
+  id: "Displayarea"
+  prototype: "/game/main/Displayarea.go"
+  position {
+    x: 160.2376
+    y: 90.24459
+  }
+}
+instances {
+  id: "wall"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 160.04428
+    y: 3.867517
+  }
+}
+instances {
+  id: "wall1"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 160.04428
+    y: 176.86752
+  }
+}
+instances {
+  id: "wall2"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 317.04428
+    y: 93.867516
+  }
+  rotation {
+    z: 0.70710677
+    w: 0.70710677
+  }
+  scale3 {
+    x: 0.606404
+  }
+}
+instances {
+  id: "wall3"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 3.044281
+    y: 89.867516
+  }
+  rotation {
+    z: 0.70710677
+    w: 0.70710677
+  }
+  scale3 {
+    x: 0.567556
+  }
+}
+instances {
+  id: "reciver1"
+  prototype: "/game/main/reciver/reciver.go"
+  position {
+    x: 299.15967
+    y: 21.676895
+    z: 1.0
+  }
+  rotation {
+    z: -0.70710677
+    w: 0.70710677
+  }
+  component_properties {
+    id: "reciver1"
+    properties {
+      id: "target_color"
+      value: "0.0, 1.0, 0.0, 1.0"
+      type: PROPERTY_TYPE_VECTOR4
+    }
+  }
+}
+instances {
+  id: "wall5"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 222.04428
+    y: 96.86752
+  }
+  scale3 {
+    x: 0.607168
+  }
+}
+instances {
+  id: "portalentrance"
+  prototype: "/game/main/portal/portalentrance.go"
+  position {
+    x: 116.0641
+    y: 37.62378
+  }
+  component_properties {
+    id: "portal1"
+    properties {
+      id: "paired_portal"
+      value: "/portalexit"
+      type: PROPERTY_TYPE_URL
+    }
+  }
+}
+instances {
+  id: "portalexit"
+  prototype: "/game/main/portal/portalexit.go"
+  position {
+    x: 142.16939
+    y: 36.96343
+  }
+  component_properties {
+    id: "portal1"
+    properties {
+      id: "exit_only"
+      value: "true"
+      type: PROPERTY_TYPE_BOOLEAN
+    }
+  }
+}
+instances {
+  id: "wall4"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 127.04428
+    y: 46.86752
+  }
+  rotation {
+    z: 0.70710677
+    w: 0.70710677
+  }
+  scale3 {
+    x: 0.32682
+  }
+}
+instances {
+  id: "wall6"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 218.04428
+    y: 16.86752
+  }
+  rotation {
+    z: 0.38268343
+    w: 0.9238795
+  }
+  scale3 {
+    x: 0.32682
+  }
+}
+instances {
+  id: "mirror"
+  prototype: "/game/main/mirror/mirror.go"
+  position {
+    x: 293.22055
+    y: 76.16326
+  }
+}
+instances {
+  id: "reciver"
+  prototype: "/game/main/reciver/reciver.go"
+  position {
+    x: 302.09863
+    y: 117.310875
+  }
+}
+instances {
+  id: "splitmirror"
+  prototype: "/game/main/splitmirror/splitmirror.go"
+  position {
+    x: 67.586525
+    y: 154.24118
+  }
+  component_properties {
+    id: "mirror"
+    properties {
+      id: "is_splitter"
+      value: "true"
+      type: PROPERTY_TYPE_BOOLEAN
+    }
+  }
+}
+instances {
+  id: "mirror1"
+  prototype: "/game/main/mirror/mirror.go"
+  position {
+    x: 197.62949
+    y: 139.20644
+  }
+  component_properties {
+    id: "mirror"
+    properties {
+      id: "laser_color"
+      value: "0.0, 1.0, 0.0, 1.0"
+      type: PROPERTY_TYPE_VECTOR4
+    }
+    properties {
+      id: "tint_laser"
+      value: "true"
+      type: PROPERTY_TYPE_BOOLEAN
+    }
+  }
+}
+instances {
+  id: "wall7"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 154.04428
+    y: 179.86752
+  }
+  rotation {
+    z: 0.70710677
+    w: 0.70710677
+  }
+  scale3 {
+    x: 0.32682
+  }
+}
+instances {
+  id: "mirror2"
+  prototype: "/game/main/mirror/mirror.go"
+  position {
+    x: 135.62949
+    y: 155.20644
+  }
+}
+scale_along_z: 0

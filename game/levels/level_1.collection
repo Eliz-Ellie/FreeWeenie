@@ -1,0 +1,222 @@
+name: "main"
+instances {
+  id: "mouse"
+  prototype: "/game/main/mouse.go"
+  position {
+    z: 1.0
+  }
+}
+instances {
+  id: "laser emitter"
+  prototype: "/game/main/laseremittor/laser emitter.go"
+  position {
+    x: 30.0
+    y: 91.0
+    z: 1.0
+  }
+  component_properties {
+    id: "laser emitter"
+    properties {
+      id: "spawn_offset"
+      value: "18.0, 0.0, 0.0"
+      type: PROPERTY_TYPE_VECTOR3
+    }
+  }
+}
+instances {
+  id: "mirror1"
+  prototype: "/game/main/mirror/mirror.go"
+  position {
+    x: 122.0
+    y: 23.0
+    z: 1.0
+  }
+  rotation {
+    z: 0.38268343
+    w: 0.9238795
+  }
+  component_properties {
+    id: "mirror"
+    properties {
+      id: "laser_color"
+      value: "1.0, 1.0, 1.0, 1.0"
+      type: PROPERTY_TYPE_VECTOR4
+    }
+    properties {
+      id: "tint_laser"
+      value: "false"
+      type: PROPERTY_TYPE_BOOLEAN
+    }
+  }
+}
+instances {
+  id: "Displayarea"
+  prototype: "/game/main/Displayarea.go"
+  position {
+    x: 160.2376
+    y: 90.24459
+  }
+}
+instances {
+  id: "wall"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 160.04428
+    y: 3.867517
+  }
+}
+instances {
+  id: "wall1"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 160.04428
+    y: 176.86752
+  }
+}
+instances {
+  id: "wall2"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 317.04428
+    y: 93.867516
+  }
+  rotation {
+    z: 0.70710677
+    w: 0.70710677
+  }
+  scale3 {
+    x: 0.585448
+  }
+}
+instances {
+  id: "wall3"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 3.044281
+    y: 89.867516
+  }
+  rotation {
+    z: 0.70710677
+    w: 0.70710677
+  }
+  scale3 {
+    x: 0.568789
+  }
+}
+instances {
+  id: "wall6"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 121.04428
+    y: 129.86752
+  }
+  rotation {
+    z: 0.70710677
+    w: 0.70710677
+  }
+  scale3 {
+    x: 0.348918
+  }
+}
+instances {
+  id: "mirror"
+  prototype: "/game/main/mirror/mirror.go"
+  position {
+    x: 86.0
+    y: 91.0
+    z: 1.0
+  }
+  rotation {
+    z: 0.38268343
+    w: 0.9238795
+  }
+  component_properties {
+    id: "mirror"
+    properties {
+      id: "laser_color"
+      value: "1.0, 1.0, 1.0, 1.0"
+      type: PROPERTY_TYPE_VECTOR4
+    }
+    properties {
+      id: "tint_laser"
+      value: "false"
+      type: PROPERTY_TYPE_BOOLEAN
+    }
+  }
+}
+instances {
+  id: "mirror2"
+  prototype: "/game/main/mirror/mirror.go"
+  position {
+    x: 176.0
+    y: 25.0
+    z: 1.0
+  }
+  rotation {
+    z: 0.38268343
+    w: 0.9238795
+  }
+  component_properties {
+    id: "mirror"
+    properties {
+      id: "laser_color"
+      value: "1.0, 1.0, 1.0, 1.0"
+      type: PROPERTY_TYPE_VECTOR4
+    }
+    properties {
+      id: "tint_laser"
+      value: "false"
+      type: PROPERTY_TYPE_BOOLEAN
+    }
+  }
+}
+instances {
+  id: "mirror3"
+  prototype: "/game/main/mirror/mirror.go"
+  position {
+    x: 195.0
+    y: 126.0
+    z: 1.0
+  }
+  rotation {
+    z: 0.38268343
+    w: 0.9238795
+  }
+  component_properties {
+    id: "mirror"
+    properties {
+      id: "laser_color"
+      value: "1.0, 1.0, 1.0, 1.0"
+      type: PROPERTY_TYPE_VECTOR4
+    }
+    properties {
+      id: "tint_laser"
+      value: "false"
+      type: PROPERTY_TYPE_BOOLEAN
+    }
+  }
+}
+instances {
+  id: "wall4"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 212.04428
+    y: 50.86752
+  }
+  rotation {
+    z: 0.70710677
+    w: 0.70710677
+  }
+  scale3 {
+    x: 0.348918
+  }
+}
+instances {
+  id: "reciver"
+  prototype: "/game/main/reciver/reciver.go"
+  position {
+    x: 292.04108
+    y: 30.488487
+  }
+}
+scale_along_z: 0

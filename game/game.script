@@ -1,0 +1,23 @@
+local input = require("Poki_Framework.framework_source.input")
+
+function init(self)
+	-- Add initialization code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function on_message(self, message_id, message, sender)
+
+	
+	if message_id == hash("laser_recived") then
+		-- We cannot allow input during any ending animations, that would allow double loading/unloading levels
+		input.disable()
+		timer.delay(1, false, function()
+			msg.post("/framework", "level_completed")
+		end)
+		return
+	end
+
+
+	
+end

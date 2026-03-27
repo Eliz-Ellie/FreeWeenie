@@ -1,0 +1,152 @@
+local input = require("Poki_Framework.framework_source.input")
+
+function init(self)
+    msg.post(".", "acquire_input_focus")
+
+    self.hover = nil
+    self.grab = false
+
+    self.initPosDMirror = vmath.vector3()
+    self.mouseDMirror = vmath.vector3()
+    self.rotateAngle = 0
+    self.mirrorRotation = vmath.quat()
+    self.delta = vmath.quat()
+    self.rot = vmath.quat()
+
+    self.initPosition = vmath.vector3()
+    self.mousePos = vmath.vector3()
+
+    self.mirrorDMouse = vmath.vector3()
+    self.targetMirror = nil
+    self.mirrorPos = vmath.vector3()
+
+    self.max_step = 1.0
+end
+
+local BLOCK_MASK = { hash("wall"), hash("mirror_block") }
+local DRAG_RADIUS = 8.5
+local STEP_SIZE = 0.35
+local SKIN = 0.03
+
+local function blocked_segment(a, b, self_id)
+    local hit = physics.raycast(a, b, BLOCK_MASK)
+    if not hit then return false, nil end
+    if hit.id == self_id then return false, nil end
+    return true, hit
+end
+
+local function can_step(from_pos, to_pos, self_id)
+    local move = to_pos - from_pos
+    local len = vmath.length(move)
+    if len < 0.0001 then return true, to_pos end
+
+    local dir = move / len
+    local side = vmath.vector3(-dir.y, dir.x, 0)
+
+    local offsets = {
+        vmath.vector3(0,0,0),
+        side * DRAG_RADIUS,
+        -side * DRAG_RADIUS,
+        dir * DRAG_RADIUS,
+        -dir * DRAG_RADIUS,
+        ( side + dir) * (DRAG_RADIUS * 0.7071),
+        ( side - dir) * (DRAG_RADIUS * 0.7071),
+        (-side + dir) * (DRAG_RADIUS * 0.7071),
+        (-side - dir) * (DRAG_RADIUS * 0.7071),
+    }
+
+    local nearest_t = 1.0
+    local blocked = false
+
+    for i = 1, #offsets do
+        local o = offsets[i]
+        local ok, hit = blocked_segment(from_pos + o, to_pos + o, self_id)
+        if ok and hit and hit.fraction then
+            blocked = true
+            if hit.fraction < nearest_t then nearest_t = hit.fraction end
+        end
+    end
+
+    if not blocked then return true, to_pos end
+
+    local safe_t = math.max(0, nearest_t - SKIN)
+    local safe_pos = from_pos + (to_pos - from_pos) * safe_t
+    return false, safe_pos
+end
+
+local function move_in_steps(target_id, from_pos, to_pos, _max_step)
+    local d = to_pos - from_pos
+    local len = vmath.length(d)
+    if len < 0.001 then return from_pos end
+
+    local dir = d / len
+    local steps = math.max(1, math.ceil(len / STEP_SIZE))
+    local step_len = len / steps
+    local p = from_pos
+
+    for i = 1, steps do
+        local n = p + dir * step_len
+        local ok, safe = can_step(p, n, target_id)
+        p = safe
+        if not ok then break end
+    end
+    return p
+end
+
+function update(self, dt)
+    if not (self.grab and self.targetMirror) then return end
+
+    if self.hover == "move" then
+        local desired = self.mousePos + self.mirrorDMouse
+        local current = go.get_position(self.targetMirror)
+        local safe = move_in_steps(self.targetMirror, current, desired, self.max_step)
+        go.set_position(safe, self.targetMirror)
+
+    elseif self.hover == "rotate" then
+        self.mouseDMirror = self.mousePos - self.mirrorPos
+        self.initPosDMirror = self.initPosition - self.mirrorPos
+        self.rotateAngle = math.atan2(self.mouseDMirror.y, self.mouseDMirror.x) - math.atan2(self.initPosDMirror.y, self.initPosDMirror.x)
+        self.delta = vmath.quat_rotation_z(self.rotateAngle)
+        self.rot = self.delta * self.mirrorRotation
+        msg.post(msg.url(nil, self.targetMirror, "mirror"), "rotate", { rotateAngle = self.rot })
+    end
+end
+
+function on_message(self, message_id, message, sender)
+    if message_id == hash("collision_response") and self.grab then
+        local candidate = message.other_id
+
+        if self.targetMirror == nil then
+            self.targetMirror = candidate
+            self.mirrorRotation = go.get_rotation(self.targetMirror)
+            self.initPosition = go.get_position()
+            self.mirrorPos = go.get_position(self.targetMirror)
+            self.mirrorDMouse = self.mirrorPos - self.mousePos
+        end
+
+        if message.other_group == hash("mirrorMove") and self.hover ~= "rotate" then
+            self.hover = "move"
+        elseif message.other_group == hash("mirrorRotate") and self.hover ~= "move" then
+            self.hover = "rotate"
+        end
+    end
+end
+
+function on_input(self, action_id, action)
+    if not input.get() then return end
+    
+    self.mousePos = vmath.vector3(action.x, action.y, 0)
+    go.set_position(self.mousePos)
+
+    if action_id == hash("touch") then
+        if action.pressed then
+            self.grab = true
+            self.hover = nil
+            self.targetMirror = nil
+        elseif action.released then
+            self.grab = false
+            self.hover = nil
+            self.targetMirror = nil
+        end
+    end
+end

@@ -1,0 +1,163 @@
+name: "main"
+instances {
+  id: "mouse"
+  prototype: "/game/main/mouse.go"
+  position {
+    z: 1.0
+  }
+}
+instances {
+  id: "laser emitter"
+  prototype: "/game/main/laseremittor/laser emitter.go"
+  position {
+    x: 26.0
+    y: 21.0
+    z: 1.0
+  }
+  component_properties {
+    id: "laser emitter"
+    properties {
+      id: "spawn_offset"
+      value: "18.0, 0.0, 0.0"
+      type: PROPERTY_TYPE_VECTOR3
+    }
+  }
+}
+instances {
+  id: "Displayarea"
+  prototype: "/game/main/Displayarea.go"
+  position {
+    x: 160.2376
+    y: 90.24459
+  }
+}
+instances {
+  id: "wall"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 160.04428
+    y: 3.867517
+  }
+}
+instances {
+  id: "wall1"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 160.04428
+    y: 176.86752
+  }
+}
+instances {
+  id: "wall2"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 317.04428
+    y: 93.867516
+  }
+  rotation {
+    z: 0.70710677
+    w: 0.70710677
+  }
+  scale3 {
+    x: 0.606404
+  }
+}
+instances {
+  id: "wall3"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 3.044281
+    y: 89.867516
+  }
+  rotation {
+    z: 0.70710677
+    w: 0.70710677
+  }
+  scale3 {
+    x: 0.567556
+  }
+}
+instances {
+  id: "reciver"
+  prototype: "/game/main/reciver/reciver.go"
+  position {
+    x: 300.5151
+    y: 157.22421
+  }
+  component_properties {
+    id: "reciver1"
+    properties {
+      id: "target_color"
+      value: "0.0, 1.0, 0.0, 1.0"
+      type: PROPERTY_TYPE_VECTOR4
+    }
+  }
+}
+instances {
+  id: "wall4"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 123.04428
+    y: 64.867516
+  }
+  scale3 {
+    x: 0.766439
+  }
+}
+instances {
+  id: "wall5"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 196.04428
+    y: 129.86752
+  }
+  scale3 {
+    x: 0.766439
+  }
+}
+instances {
+  id: "mirror"
+  prototype: "/game/main/mirror/mirror.go"
+  position {
+    x: 150.27283
+    y: 32.849712
+  }
+}
+instances {
+  id: "mirror1"
+  prototype: "/game/main/mirror/mirror.go"
+  position {
+    x: 269.2578
+    y: 101.92927
+  }
+}
+instances {
+  id: "mirror2"
+  prototype: "/game/main/mirror/mirror.go"
+  position {
+    x: 35.34679
+    y: 95.15742
+  }
+}
+instances {
+  id: "mirror3"
+  prototype: "/game/main/mirror/mirror.go"
+  position {
+    x: 46.068886
+    y: 149.05006
+  }
+  component_properties {
+    id: "mirror"
+    properties {
+      id: "laser_color"
+      value: "0.0, 1.0, 0.0, 1.0"
+      type: PROPERTY_TYPE_VECTOR4
+    }
+    properties {
+      id: "tint_laser"
+      value: "true"
+      type: PROPERTY_TYPE_BOOLEAN
+    }
+  }
+}
+scale_along_z: 0

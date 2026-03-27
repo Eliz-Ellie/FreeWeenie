@@ -1,0 +1,30 @@
+go.property("laser_color", vmath.vector4(1, 1, 1, 1))
+go.property("is_splitter", false)
+go.property("tint_laser", false) -- NEW: default off
+
+local function apply_color(self)
+    go.set("#sprite", "tint", self.laser_color)
+end
+
+function init(self)
+    apply_color(self)
+end
+
+function update(self, dt)
+    apply_color(self)
+end
+
+function on_message(self, message_id, message, sender)
+    if message_id == hash("move") then
+        if message.movePos then
+            go.set_position(message.movePos)
+        end
+    elseif message_id == hash("rotate") then
+        if message.rotateAngle then
+            go.set_rotation(message.rotateAngle)
+        end
+    elseif message_id == hash("set_laser_color") and message.color then
+        self.laser_color = message.color
+        apply_color(self)
+    end
+end

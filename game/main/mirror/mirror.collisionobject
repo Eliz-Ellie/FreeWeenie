@@ -1,0 +1,49 @@
+type: COLLISION_OBJECT_TYPE_KINEMATIC
+mass: 0.0
+friction: 0.8
+restitution: 0.0
+group: "mirror_body"
+mask: "wall"
+mask: "mirror_body"
+embedded_collision_shape {
+  shapes {
+    shape_type: TYPE_BOX
+    position {
+      x: -1.5
+    }
+    rotation {
+    }
+    index: 0
+    count: 3
+    id: "Reflect"
+  }
+  shapes {
+    shape_type: TYPE_BOX
+    position {
+      x: 1.5
+    }
+    rotation {
+    }
+    index: 3
+    count: 3
+    id: "Reflect2"
+  }
+  shapes {
+    shape_type: TYPE_BOX
+    position {
+    }
+    rotation {
+    }
+    index: 6
+    count: 3
+  }
+  data: 0.2111195
+  data: 7.9888697
+  data: 10.0
+  data: 0.2111195
+  data: 7.9888697
+  data: 10.0
+  data: 1.253211
+  data: 7.985525
+  data: 10.0
+}

@@ -1,0 +1,17 @@
+local receiver_registry = require("game.main.receiver_registry")
+
+function init(self)
+	-- Setting up Pixel upscaling stuff
+	msg.post("@render:", "use_fixed_projection", { zoom = 5 })
+	-- Set upscale size
+	window.set_size(1600, 900)
+	-- Setting window position for workflow reasons
+	window.set_position(100, 100)
+	
+	-- IMPORTANT: clear old level receiver state
+	receiver_registry.reset()
+	
+	self.frame = 0
+	self.receiver_status = {}   -- [receiver_id] = { frame = n, matched = bool }
+	self.victory_printed = false
+end

@@ -1,0 +1,200 @@
+name: "main"
+instances {
+  id: "mouse"
+  prototype: "/game/main/mouse.go"
+  position {
+    z: 1.0
+  }
+}
+instances {
+  id: "laser emitter"
+  prototype: "/game/main/laseremittor/laser emitter.go"
+  position {
+    x: 27.0
+    y: 32.0
+    z: 1.0
+  }
+  component_properties {
+    id: "laser emitter"
+    properties {
+      id: "spawn_offset"
+      value: "18.0, 0.0, 0.0"
+      type: PROPERTY_TYPE_VECTOR3
+    }
+  }
+}
+instances {
+  id: "Displayarea"
+  prototype: "/game/main/Displayarea.go"
+  position {
+    x: 160.2376
+    y: 90.24459
+  }
+}
+instances {
+  id: "wall"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 160.04428
+    y: 3.867517
+  }
+}
+instances {
+  id: "wall1"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 160.04428
+    y: 176.86752
+  }
+}
+instances {
+  id: "wall2"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 317.04428
+    y: 93.867516
+  }
+  rotation {
+    z: 0.70710677
+    w: 0.70710677
+  }
+  scale3 {
+    x: 0.606404
+  }
+}
+instances {
+  id: "wall3"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 3.044281
+    y: 89.867516
+  }
+  rotation {
+    z: 0.70710677
+    w: 0.70710677
+  }
+  scale3 {
+    x: 0.567556
+  }
+}
+instances {
+  id: "reciver"
+  prototype: "/game/main/reciver/reciver.go"
+  position {
+    x: 25.211714
+    y: 154.21506
+  }
+  rotation {
+    z: 1.0
+    w: 6.123234E-17
+  }
+}
+instances {
+  id: "reciver1"
+  prototype: "/game/main/reciver/reciver.go"
+  position {
+    x: 297.62906
+    y: 28.250437
+  }
+}
+instances {
+  id: "wall4"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 207.04428
+    y: 16.867516
+  }
+  rotation {
+    z: 0.70710677
+    w: 0.70710677
+  }
+  scale3 {
+    x: 0.352678
+  }
+}
+instances {
+  id: "wall5"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 71.04428
+    y: 129.86752
+  }
+  scale3 {
+    x: 0.61221
+  }
+}
+instances {
+  id: "wall6"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 287.04428
+    y: 128.86752
+  }
+  scale3 {
+    x: 0.344364
+  }
+}
+instances {
+  id: "wall7"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 235.04428
+    y: 168.86752
+  }
+  rotation {
+    z: 0.70710677
+    w: 0.70710677
+  }
+  scale3 {
+    x: 0.264281
+  }
+}
+instances {
+  id: "mirror"
+  prototype: "/game/main/mirror/mirror.go"
+  position {
+    x: 202.46703
+    y: 150.60727
+  }
+}
+instances {
+  id: "splitmirror"
+  prototype: "/game/main/splitmirror/splitmirror.go"
+  position {
+    x: 91.71894
+    y: 31.607817
+  }
+  component_properties {
+    id: "mirror"
+    properties {
+      id: "is_splitter"
+      value: "true"
+      type: PROPERTY_TYPE_BOOLEAN
+    }
+  }
+}
+instances {
+  id: "mirror1"
+  prototype: "/game/main/mirror/mirror.go"
+  position {
+    x: 242.46703
+    y: 31.607265
+  }
+}
+instances {
+  id: "mirror2"
+  prototype: "/game/main/mirror/mirror.go"
+  position {
+    x: 97.467026
+    y: 94.60727
+  }
+}
+instances {
+  id: "mirror3"
+  prototype: "/game/main/mirror/mirror.go"
+  position {
+    x: 287.467
+    y: 108.60727
+  }
+}
+scale_along_z: 0

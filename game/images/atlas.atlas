@@ -1,0 +1,30 @@
+images {
+  image: "/game/images/Namnl\303\266s.png"
+  pivot_x: 0.586967
+  pivot_y: 0.415036
+}
+images {
+  image: "/game/images/laserEmitter.png"
+}
+images {
+  image: "/game/images/LaserReciver.png"
+}
+images {
+  image: "/game/images/portal1.png"
+}
+images {
+  image: "/game/images/portal2.png"
+}
+images {
+  image: "/game/images/download (6).jpg"
+}
+images {
+  image: "/game/images/Mirror.png"
+}
+images {
+  image: "/game/images/laser_segment.png"
+}
+images {
+  image: "/game/images/splitmirror.png"
+}
+extrude_borders: 2

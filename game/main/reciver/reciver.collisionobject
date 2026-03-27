@@ -1,0 +1,22 @@
+type: COLLISION_OBJECT_TYPE_STATIC
+mass: 0.0
+friction: 0.1
+restitution: 0.5
+group: "reciver"
+mask: "laser"
+embedded_collision_shape {
+  shapes {
+    shape_type: TYPE_BOX
+    position {
+      x: -10.0
+      y: -0.5
+    }
+    rotation {
+    }
+    index: 0
+    count: 3
+  }
+  data: 0.636296
+  data: 3.4963925
+  data: 10.0
+}

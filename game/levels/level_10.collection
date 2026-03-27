@@ -1,0 +1,306 @@
+name: "main"
+instances {
+  id: "mouse"
+  prototype: "/game/main/mouse.go"
+  position {
+    z: 1.0
+  }
+}
+instances {
+  id: "laser emitter"
+  prototype: "/game/main/laseremittor/laser emitter.go"
+  position {
+    x: 24.0
+    y: 155.0
+    z: 1.0
+  }
+  component_properties {
+    id: "laser emitter"
+    properties {
+      id: "spawn_offset"
+      value: "18.0, 0.0, 0.0"
+      type: PROPERTY_TYPE_VECTOR3
+    }
+  }
+}
+instances {
+  id: "Displayarea"
+  prototype: "/game/main/Displayarea.go"
+  position {
+    x: 160.2376
+    y: 90.24459
+  }
+}
+instances {
+  id: "wall"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 160.04428
+    y: 3.867517
+  }
+}
+instances {
+  id: "wall1"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 160.04428
+    y: 176.86752
+  }
+}
+instances {
+  id: "wall2"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 317.04428
+    y: 93.867516
+  }
+  rotation {
+    z: 0.70710677
+    w: 0.70710677
+  }
+  scale3 {
+    x: 0.606404
+  }
+}
+instances {
+  id: "wall3"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 3.044281
+    y: 89.867516
+  }
+  rotation {
+    z: 0.70710677
+    w: 0.70710677
+  }
+  scale3 {
+    x: 0.567556
+  }
+}
+instances {
+  id: "portalentrance"
+  prototype: "/game/main/portal/portalentrance.go"
+  position {
+    x: 130.02115
+    y: 149.88467
+  }
+  component_properties {
+    id: "portal1"
+    properties {
+      id: "paired_portal"
+      value: "/portalexit"
+      type: PROPERTY_TYPE_URL
+    }
+  }
+}
+instances {
+  id: "portalexit"
+  prototype: "/game/main/portal/portalexit.go"
+  position {
+    x: 196.35132
+    y: 30.780865
+  }
+  component_properties {
+    id: "portal1"
+    properties {
+      id: "exit_only"
+      value: "true"
+      type: PROPERTY_TYPE_BOOLEAN
+    }
+  }
+}
+instances {
+  id: "wall4"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 190.04428
+    y: 19.867516
+  }
+  rotation {
+    z: 0.70710677
+    w: 0.70710677
+  }
+  scale3 {
+    x: 0.334674
+  }
+}
+instances {
+  id: "wall5"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 204.04428
+    y: 70.867516
+  }
+  scale3 {
+    x: 0.443841
+  }
+}
+instances {
+  id: "wall6"
+  prototype: "/game/main/wall/wall.go"
+  position {
+    x: 135.04428
+    y: 123.867516
+  }
+  rotation {
+    z: 0.70710677
+    w: 0.70710677
+  }
+  scale3 {
+    x: 0.334674
+  }
+}
+instances {
+  id: "reciver"
+  prototype: "/game/main/reciver/reciver.go"
+  position {
+    x: 300.29126
+    y: 21.470264
+  }
+  component_properties {
+    id: "reciver1"
+    properties {
+      id: "target_color"
+      value: "0.0, 1.0, 0.0, 1.0"
+      type: PROPERTY_TYPE_VECTOR4
+    }
+  }
+}
+instances {
+  id: "reciver1"
+  prototype: "/game/main/reciver/reciver.go"
+  position {
+    x: 171.96834
+    y: 21.66199
+  }
+}
+instances {
+  id: "reciver2"
+  prototype: "/game/main/reciver/reciver.go"
+  position {
+    x: 153.34901
+    y: 88.16552
+  }
+  rotation {
+    z: 1.0
+    w: 6.123234E-17
+  }
+  component_properties {
+    id: "reciver1"
+    properties {
+      id: "target_color"
+      value: "0.0, 0.0, 1.0, 1.0"
+      type: PROPERTY_TYPE_VECTOR4
+    }
+  }
+}
+instances {
+  id: "reciver3"
+  prototype: "/game/main/reciver/reciver.go"
+  position {
+    x: 20.769554
+    y: 21.853716
+  }
+  rotation {
+    z: 1.0
+    w: 6.123234E-17
+  }
+}
+instances {
+  id: "splitmirror"
+  prototype: "/game/main/splitmirror/splitmirror.go"
+  position {
+    x: 77.90755
+    y: 153.53938
+  }
+  component_properties {
+    id: "mirror"
+    properties {
+      id: "laser_color"
+      value: "0.0, 1.0, 0.0, 1.0"
+      type: PROPERTY_TYPE_VECTOR4
+    }
+    properties {
+      id: "is_splitter"
+      value: "true"
+      type: PROPERTY_TYPE_BOOLEAN
+    }
+    properties {
+      id: "tint_laser"
+      value: "true"
+      type: PROPERTY_TYPE_BOOLEAN
+    }
+  }
+}
+instances {
+  id: "splitmirror1"
+  prototype: "/game/main/splitmirror/splitmirror.go"
+  position {
+    x: 53.18479
+    y: 44.11305
+  }
+  component_properties {
+    id: "mirror"
+    properties {
+      id: "laser_color"
+      value: "1.0, 0.0, 0.0, 1.0"
+      type: PROPERTY_TYPE_VECTOR4
+    }
+    properties {
+      id: "is_splitter"
+      value: "true"
+      type: PROPERTY_TYPE_BOOLEAN
+    }
+    properties {
+      id: "tint_laser"
+      value: "true"
+      type: PROPERTY_TYPE_BOOLEAN
+    }
+  }
+}
+instances {
+  id: "mirror"
+  prototype: "/game/main/mirror/mirror.go"
+  position {
+    x: 109.48827
+    y: 33.473038
+  }
+}
+instances {
+  id: "splitmirror2"
+  prototype: "/game/main/splitmirror/splitmirror.go"
+  position {
+    x: 229.7698
+    y: 36.00407
+  }
+}
+instances {
+  id: "mirror1"
+  prototype: "/game/main/mirror/mirror.go"
+  position {
+    x: 207.20976
+    y: 107.65795
+  }
+  component_properties {
+    id: "mirror"
+    properties {
+      id: "laser_color"
+      value: "0.0, 0.0, 1.0, 1.0"
+      type: PROPERTY_TYPE_VECTOR4
+    }
+    properties {
+      id: "tint_laser"
+      value: "true"
+      type: PROPERTY_TYPE_BOOLEAN
+    }
+  }
+}
+instances {
+  id: "mirror2"
+  prototype: "/game/main/mirror/mirror.go"
+  position {
+    x: 285.2678
+    y: 86.50482
+  }
+}
+scale_along_z: 0

@@ -1,0 +1,55 @@
+local receiver_registry = require("game.main.receiver_registry")
+
+go.property("target_color", vmath.vector4(1, 0, 0, 1))
+go.property("tolerance", 0.15)
+
+local function color_match(a, b, tol)
+    if not a or not b then return false end
+    return math.abs(a.x - b.x) <= tol
+       and math.abs(a.y - b.y) <= tol
+       and math.abs(a.z - b.z) <= tol
+       and math.abs(a.w - b.w) <= tol
+end
+
+local function apply_color(self)
+    go.set("#sprite", "tint", self.target_color)
+end
+
+function init(self)
+    receiver_registry.register_receiver(go.get_id())
+    apply_color(self)
+end
+
+function update(self, dt)
+    apply_color(self)
+end
+
+function on_message(self, message_id, message, sender)
+    if message_id == hash("set_target_color") and message.color then
+        self.target_color = message.color
+        apply_color(self)
+        return
+    end
+
+    if message_id ~= hash("laser_hit") then
+        return
+    end
+
+    local incoming = message.color
+    local frame = message.frame or 0
+    local matched = color_match(incoming, self.target_color, self.tolerance)
+
+    receiver_registry.mark_result(go.get_id(), frame, matched)
+
+    if message.emitter then
+        msg.post(message.emitter, "receiver_status", {
+            go_id = go.get_id(),
+            frame = frame,
+            matched = matched
+        })
+    end
+end
+
+function final(self)
+    receiver_registry.unregister_receiver(go.get_id())
+end

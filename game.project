@@ -1,5 +1,5 @@
 [bootstrap]
-main_collection = /main/main.collectionc
+main_collection = /Poki_Framework/framework.collectionc
 
 [script]
 shared_state = 1
@@ -21,7 +21,7 @@ show_made_with_defold = 0
 
 [project]
 title = Free Weenie
-dependencies#0 = https://github.com/defold/extension-poki-sdk/archive/refs/heads/main.zip
+dependencies#0 = https://github.com/defold/extension-poki-sdk/archive/refs/tags/3.4.1.zip
 
 [physics]
 debug = 0
@@ -29,4 +29,10 @@ debug = 0
 [graphics]
 default_texture_min_filter = nearest
 default_texture_mag_filter = nearest
+
+[input]
+game_binding = /game.input_bindingc
+
+[collection_proxy]
+max_count = 50
 

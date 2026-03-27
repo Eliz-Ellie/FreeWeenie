@@ -1,0 +1,49 @@
+type: COLLISION_OBJECT_TYPE_KINEMATIC
+mass: 0.0
+friction: 0.1
+restitution: 0.5
+group: "wall"
+mask: "laser"
+embedded_collision_shape {
+  shapes {
+    shape_type: TYPE_BOX
+    position {
+      x: 2.0
+    }
+    rotation {
+      y: 0.02025095
+      w: 0.9997949
+    }
+    index: 0
+    count: 3
+  }
+  shapes {
+    shape_type: TYPE_BOX
+    position {
+      y: 26.0
+    }
+    rotation {
+    }
+    index: 3
+    count: 3
+  }
+  shapes {
+    shape_type: TYPE_BOX
+    position {
+      y: -26.0
+    }
+    rotation {
+    }
+    index: 6
+    count: 3
+  }
+  data: 0.732933
+  data: 26.170977
+  data: 10.0
+  data: 1.6356695
+  data: 0.754258
+  data: 10.0
+  data: 1.6356695
+  data: 0.754258
+  data: 10.0
+}
